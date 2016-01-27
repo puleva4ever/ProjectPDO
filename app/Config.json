@@ -1,0 +1,14 @@
+{
+	"dbconf":{
+		"driver":"mysql",
+		"dbname":"projectpdo",
+		"dbhost":"localhost",
+		"dbuser":"root",
+		"dbpass":""
+	},
+	"app":{
+		"title":"ProjectPDO",
+		"version":"0.1"
+	}
+
+}
