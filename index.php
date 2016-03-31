@@ -20,8 +20,6 @@
 	
 	$conf->welcome='Hola';  // __set()
 	$msg=$conf->welcome;    // __get()
-	
-	
 
 	Core::init();
 

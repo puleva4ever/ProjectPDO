@@ -1,0 +1,43 @@
+use projectpdo;
+
+delimiter $$
+
+CREATE PROCEDURE sp_new_publish(IN p_title VARCHAR(100), IN p_description TEXT, IN p_image1 VARCHAR(100), IN p_image2 VARCHAR(100), IN p_image3 VARCHAR(100), IN p_user INT, OUT p_output)
+BEGIN
+	DECLARE v_check INT DEFAULT 0;
+    DECLARE last_id INT DEFAULT 0;
+    SET p_output = 0;
+    
+	SELECT `id_ad` INTO v_check FROM `ads` WHERE title = p_title;
+    
+    IF v_check = 0 THEN
+    	INSERT INTO `ads`(`title`,`description`,`user`) VALUES(p_title,p_description,p_user);
+        IF @@ROWCOUNT = 1 THEN
+        	IF @@ROWCOUNT = 1 THEN    
+				SELECT `id_ad` INTO last_id FROM `ads` WHERE title = p_title;
+                IF last_id > 0 THEN
+        			INSERT INTO images(image_path,resolution,size,ad) VALUES(p_image1,null,null,last_id);
+                    IF @@ROWCOUNT = 1 AND p_image2 IS NOT NULL THEN
+                    	INSERT INTO images(image_path,resolution,size,ad) VALUES(p_image2,null,null,last_id);
+                        IF @@ROWCOUNT = 1 AND p_image3 IS NOT NULL THEN
+                            INSERT INTO images(image_path,resolution,size,ad) VALUES(p_image3,null,null,last_id);
+                        ELSE
+                            SET p_output = -6;
+                        END IF;
+                    ELSE
+                        SET p_output = -5;
+                    END IF;
+           		ELSE
+            		SET p_output = -4;
+                END IF;
+            ELSE
+            	SET p_output = -3;
+            END IF;
+        ELSE
+			SET p_output = -2;
+		END IF;
+    ELSE
+		SET p_output = -1;
+	END IF;
+    
+END$$

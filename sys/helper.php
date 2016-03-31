@@ -59,6 +59,7 @@
 			require $file;
 		}
 	}
+
 	/**
 	 * 
 	 *  Coder
@@ -66,6 +67,7 @@
 	 *  @author Toni
 	 * 
 	 * */
+	
 	class Coder{
 		static function code($var){
 			echo '<pre>'.$var.'</pre>';
@@ -74,9 +76,21 @@
 		static function codear($var){
 			echo '<pre>'.var_dump($var).'</pre>';
 		}
-
-
 	}
+
+	class Menu{
+
+		static function create($menu=array()){
+			echo '<ul>';
+			foreach($menu as $item => $link){
+				echo "<li><a href='".$link."'>".$item.'</a></li>';
+			}
+			echo '</ul>';
+		}
+	}
+
+
+
 
 
 	

@@ -12,8 +12,7 @@
 		}
 
 		function query($query){
-			$this->stmt= $this->db->prepare($query);
-			Coder::codear($this->stmt);
+			$this->stmt = $this->db->prepare($query);
 		}
 
 		function bind($param,$value,$type=null){
@@ -66,6 +65,11 @@
 		function debugDumpParams(){
 			$this->stmt->debugDumpParams();
 		}
+
+		
+
+
+		
 	}
 
 ?>

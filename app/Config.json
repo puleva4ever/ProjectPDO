@@ -1,13 +1,13 @@
 {
 	"dbconf":{
 		"driver":"mysql",
-		"dbname":"projectpdo",
+		"dbname":"2daw09_projectpdo",
 		"dbhost":"localhost",
-		"dbuser":"root",
-		"dbpass":""
+		"dbuser":"2daw09_root",
+		"dbpass":"linuxlinux"
 	},
 	"app":{
-		"title":"ProjectPDO",
+		"title":"TrashCan",
 		"version":"0.1"
 	}
 

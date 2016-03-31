@@ -15,6 +15,7 @@
 			}
 			
 			include APP.'tpl'.DS.'head.php';
+			include APP.'tpl'.DS.'common.php';
 			include APP.'tpl'.DS.$contents.'.php';
 			include APP.'tpl'.DS.'footer.php';
 		}

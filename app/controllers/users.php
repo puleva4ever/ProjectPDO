@@ -1,13 +1,18 @@
 <?php
 
-class User extends Controller{
+class Users extends Controller{
 
-	protected &model;
-	view
+	protected $model;
+	protected $view;
 
-	function __construct(){
+	function __construct($params){
+			parent::__construct($params);
+			$this->model = new mHome();
+			$this->view = new vUsers();	
+	}
 
-	
+	function home(){
+
 	}
 
 }
