@@ -1,0 +1,68 @@
+*{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+}
+
+a{
+	text-decoration:none;
+}
+
+body{
+	background-color: white;
+	font-family: "Arial",Sans-serif;
+}
+
+header{
+	background-color: white;
+	background:#383838;
+	width:100%;
+	height:110px;
+}
+
+a #main-title{
+	text-decoration:none;
+}
+
+#main-title{
+	margin:0;
+	padding:0;
+	color:white;
+	font-size: 5em;
+	padding-left:5%;
+}
+
+#sub-title{
+	margin:0;
+	padding:0;
+	position:absolute;
+	top:80px;
+	color:white;
+	font-size: 1em;
+	padding-left:6%;
+}
+
+#login{
+	margin-left:5%;
+}
+
+#login-form input[type='text']{
+	width:200px;
+}
+
+.container{
+	display: block;
+	background-color: white;
+	height:50%;
+	margin-left:5%;
+	margin-right:5%;
+}
+
+#edit-pro{
+	display:none;
+}
+
+.ad{
+	border:3px solid #383838;
+}
+
