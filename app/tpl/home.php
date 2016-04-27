@@ -25,14 +25,6 @@
 		<?php Menu::create($menu); ?>
 	</nav>
 
-	<div id="ads">
-		<!--<div class="ad">
-			<img src="" />
-			<div>
-				<h3></h3>
-				<div class="ad-content"></div>
-			</div>
-		</div>-->
-	</div>
+	<div id="ads"></div>
 
 </div>

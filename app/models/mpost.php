@@ -7,7 +7,7 @@
 
 		}
 
-		function m_post($title,$description,$image){
+		function m_post($title,$description,$image,$latitude,$longitude){
 			$output = 0;
 			$user = null;
 
@@ -27,9 +27,11 @@
 				$user = $this->resultSet();
 				$user = $user[0]['id_user'];
 				if($this->rowCount() > 0){
-					$this->query("INSERT INTO ads(title,description,user) VALUES(:title,:description,:user)");
+					$this->query("INSERT INTO ads(title,description,latitude,longitude,user) VALUES(:title,:description,:latitude,:longitude,:user)");
 					$this->bind(':title',$title);
 					$this->bind(':description',$description);
+					$this->bind(':latitude',$latitude);
+					$this->bind(':longitude',$longitude);
 					$this->bind(':user',$user);
 					$this->execute();
 					if($this->rowCount() > 0){
@@ -37,7 +39,12 @@
 						$this->bind(':image',$image);
 						$this->bind(':ad',$this->lastInsertID());
 						$this->execute();
-						if($this->rowCount() == 0){
+						if($this->rowCount() > 0){
+							$this->query("INSERT INTO images(image_path,resolution,size,ad) VALUES(:image,null,null,:ad)");
+							$this->bind(':image',$image);
+							$this->bind(':ad',$this->lastInsertID());
+							$this->execute();
+						}else{
 							$output = -4;
 						}
 					}else{

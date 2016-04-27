@@ -66,3 +66,10 @@ a #main-title{
 	border:3px solid #383838;
 }
 
+.ad-map{
+	border:3px solid grey;
+	border-radius:10px;
+	width:400px;
+	height:250px;
+}
+

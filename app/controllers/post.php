@@ -19,9 +19,11 @@ class Post extends Controller{
 		$title = $_POST['title'];
 		$description = $_POST['description'];
 		$image = $_POST['image'];
+		$latitude = $_POST['latitude'];
+		$longitude = $_POST['longitude'];
 
 		
-		$model_return = $this->model->m_post($title,$description,$image);
+		$model_return = $this->model->m_post($title,$description,$image,$latitude,$longitude);
 		Sleep(1);
 		if($model_return == 0){
 			header('Location: '.APP_W.'home');

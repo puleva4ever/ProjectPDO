@@ -27,7 +27,18 @@ $(document).ready(function(){
 			//console.log(resp);
 			for(i=0;i<resp.length;i++){
 				if(resp[i].ad == resp[i].id_ad){
-					$("#ads").append("<br /><div class='ad'><img src='"+resp[i].image_path+"' height='200' /><div><h3>"+resp[i].title+"</h3><div class='ad-content'>"+resp[i].description+"</div></div></div>");
+					$("#ads").append("<br /><div class='ad' id='ad"+resp[i].id_ad+"'><img src='"+resp[i].image_path+"' height='200' /><div><h3>"+resp[i].title+"</h3><div class='ad-content'>"+resp[i].description+"</div></div><br></div>");
+					this_ad = "#ad"+resp[i].id_ad;
+					if(resp[i].latitude != 0 && resp[i].longitude != 0){						
+						$(this_ad).append("<div>Localizacion</div><div class='ad-map' id='map"+resp[i].id_ad+"'></div>");
+						new GMaps({
+							div: '#map'+resp[i].id_ad,
+							lat: resp[i].latitude,
+							lng: resp[i].longitude
+						});
+					}else{
+						$(this_ad).append("<div><i>Localizacion no disponible</i></div> ");
+					}
 				}				
 			}
 		}
@@ -135,6 +146,22 @@ $(document).ready(function(){
 			}
 		});
 		event.preventDefault();
+	});
+
+
+	/* ------------- GET GEOLOCATION ------------- */
+	$("#geolocate").on("click",function(){
+		GMaps.geolocate({
+			success: function(position) {
+				$("#form_latitude").val(position.coords.latitude);
+				$("#form_longitude").val(position.coords.longitude);
+				alert("Geolocalizacion guardada. Gracias.");
+			},error: function(error) {
+				alert('No se ha podido guardar la localizacion.');
+			},not_supported: function() {
+				alert("Su navegador no soporta geolocalizacion.");
+			}
+		});
 	});
 
 });
