@@ -18,32 +18,97 @@ $(document).ready(function(){
 		return false;
 	});
 
+	/* GET USER COOKIE */
+	function getCookie(){
+		$.ajax({
+			url: "home/getCookie",
+			dataType: 'json',
+			success: function(resp){
+				if(resp.response != '-1'){
+					return resp.response;
+				}
+			}
+		});
+	}
+
+	function showRating(this_id_ad, this_ad, this_ad_sel, user){
+		$(this_ad).append("<br><br><div><strong>Valoracion</strong></div>");
+		$.ajax({
+			type: 'POST',
+			url: "home/c_checkIfRated",
+			dataType: 'json',
+			data: {user : user, ad : this_id_ad},
+			success: function(canShow){
+				if(canShow.response){
+					$.ajax({
+						url: "home/c_get_total_score",
+						dataType: 'json',
+						data: {ad : this_id_ad},
+						success: function(resp_score){
+							$(this_ad).append("<div>"+resp_score.score+", resultado de "+resp_score.outOf+" valoraciones</div>");
+						}
+					});
+				}else{
+					//alert(this_ad_sel);
+					$(this_ad).append("<div id='"+this_ad_sel+"' class='sel'><select><option value='5'>5</option><option value='4'>4</option><option value='3'>3</option><option value='2'>2</option><option value='1'>1</option></select></div>");
+					$(this_ad).append("<input type='button' value='VALORAR' class='btn-rate' name='"+this_id_ad+"' />");
+				}
+			}
+		});			
+	}
+
+
 
 	/* ------------- SHOW POST ------------- */
 	$.ajax({
 		url: "home/show_post",
 		dataType: 'json',
 		success: function(resp){
-			//console.log(resp);
 			for(i=0;i<resp.length;i++){
 				if(resp[i].ad == resp[i].id_ad){
 					$("#ads").append("<br /><div class='ad' id='ad"+resp[i].id_ad+"'><img src='"+resp[i].image_path+"' height='200' /><div><h3>"+resp[i].title+"</h3><div class='ad-content'>"+resp[i].description+"</div></div><br></div>");
-					this_ad = "#ad"+resp[i].id_ad;
-					if(resp[i].latitude != 0 && resp[i].longitude != 0){						
-						$(this_ad).append("<div>Localizacion</div><div class='ad-map' id='map"+resp[i].id_ad+"'></div>");
+					this_id_ad = resp[i].id_ad;
+					this_ad = "#ad"+this_id_ad;
+					this_ad_sel = "#sel"+this_id_ad;
+
+					/* SHOW MAP */
+					if(resp[i].latitude != 0 && resp[i].longitude != 0){
+						$(this_ad).append("<div>Localizacion</div><div class='ad-map' id='map"+this_id_ad+"'></div>");
 						new GMaps({
-							div: '#map'+resp[i].id_ad,
+							div: '#map'+this_id_ad,
 							lat: resp[i].latitude,
 							lng: resp[i].longitude
 						});
 					}else{
 						$(this_ad).append("<div><i>Localizacion no disponible</i></div> ");
 					}
+					//alert(this_ad);
+					showRating(this_id_ad, this_ad, this_ad_sel, getCookie());
 				}				
 			}
 		}
 	});
 	
+
+
+	// ------------- RATING ------------- 
+	$("#ads").on("click", ".btn-rate", function(){
+				$(this).remove();
+				alert("Gracias por votar!");
+		/*$.ajax({
+			url: "home/c_get_total_score",
+			dataType: 'json',
+			success: function(resp_score){
+			}
+		});*/
+	});
+	
+
+
+
+
+
+
 
 	/* ------------- FILL USERS ------------- */
 	function fill_users(){

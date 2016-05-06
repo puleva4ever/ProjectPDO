@@ -36,7 +36,16 @@
 			}
 		}
 
+		function getCookie(){
+			if($_COOKIE['user']){
+				$this->json_out(array('response' => $_COOKIE['user']));
+			}else{
+				$this->json_out(array('response' => '-1'));
+			}
+		}
+
 		function logout(){
+			setcookie("user", "", time() - 3600);
 			session_destroy();
 			header('Location:'.APP_W.'home');
 		}
@@ -45,4 +54,18 @@
 			$output = $this->model->m_show_post();
 			$this->json_out($output);
 		}
+
+		function c_checkIfRated(){
+			$user = $_POST['user'];
+			$ad = $_POST['ad'];
+			$mod_out = $this->model->m_checkIfRated($user,$ad);
+			$this->json_out(array('response' => $mod_out));
+		}
+
+		function c_get_total_score(){
+			$ad = $_POST['ad'];
+			$mod_out = $this->model->m_get_total_score($ad);
+			$this->json_out(array('response' => $mod_out));			
+		}
+
 }

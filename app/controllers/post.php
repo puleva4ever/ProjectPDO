@@ -31,4 +31,16 @@ class Post extends Controller{
 			echo "Error: ".$model_return;
 		}
 	}
+
+	function c_rating(){
+		$score = $_POST['score'];
+		$user = $_POST['user'];
+		$ad = $_POST['ad'];
+
+		$model_return = $this->model->m_rating($score, $user, $ad);
+		Sleep(1);
+		echo $model_return;
+	}
+
+
 }

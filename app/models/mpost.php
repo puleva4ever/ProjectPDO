@@ -65,4 +65,25 @@
 
 			return $output;
 		}
+
+
+		function m_rating($score,$user,$ad){
+
+			$this->query("INSERT INTO score VALUES(:ad, :user, :score)");
+			$this->bind(':ad',$ad);
+			$this->bind(':user',$user);
+			$this->bind(':score',$score);
+			$this->execute();
+
+			if($this->rowCount() > 0){
+				$this->query("SELECT * FROM score WHERE ad = :ad");
+				$this->bind(':ad',$ad);
+				$this->execute();				
+				
+				return $this->model->m_get_total_score($ad);
+
+			}else{
+				return -1;
+			}
+		}
 	}

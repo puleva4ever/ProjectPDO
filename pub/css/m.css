@@ -9,7 +9,7 @@ a{
 }
 
 body{
-	background-color: white;
+	background-image:url("../img/brickwall.png");
 	font-family: "Arial",Sans-serif;
 }
 
@@ -52,7 +52,6 @@ a #main-title{
 
 .container{
 	display: block;
-	background-color: white;
 	height:50%;
 	margin-left:5%;
 	margin-right:5%;
@@ -62,8 +61,36 @@ a #main-title{
 	display:none;
 }
 
+#ads{
+	display:flex;
+	flex:1;
+	justify-content:initial;
+	flex-wrap:wrap;
+	margin-top:5vh;
+	width:100%;
+}
+
 .ad{
 	border:3px solid #383838;
+	width:50%;
+	min-width:444px;
+	margin:0;
+	margin-bottom:8vh;
+	padding:20px;
+	border-radius:10px;
+	background:rgba(0,0,0,0.2);
+	box-shadow:3px 3px 20px black;
+	margin-right:10px;
+	transition:all 0.2s ease;
+}
+
+.ad:hover{
+	background:rgba(0,0,0,0.3);
+	box-shadow:3px 3px 10px black;
+}
+
+.ad img{
+	border-radius:10px;
 }
 
 .ad-map{
